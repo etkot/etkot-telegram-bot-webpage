@@ -2,12 +2,12 @@
 
 import { serve } from 'esbuild'
 
-await serve(
+const res = await serve(
   {
     servedir: 'public',
   },
   {
-    entryPoints: ['./src/index.ts'],
+    entryPoints: ['./src/index.ts', './src/index.css'],
     outdir: 'public',
     loader: {
       '.html': 'text',
@@ -19,3 +19,5 @@ await serve(
     treeShaking: true,
   }
 )
+
+console.log(`Serving at http://${res.host}:${res.port}`)
