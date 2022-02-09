@@ -1,0 +1,21 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Frontend for the etkot-bot backend",
+  "main": "index.js",
+  "author": "Niilo Jaakkola (niilo.jaakkola@icloud.com)",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "dev": "esbuild build.dev.ts | node --input-type=module"
+  },
+  "dependencies": {
+    "esbuild": "^0.14.21"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.16"
+  }
+}

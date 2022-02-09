@@ -1,0 +1,17 @@
+html,
+.dark-mode {
+  --font-color: #ffffff;
+  --font-color-secondary: #a28eff;
+  --background-color: #000000;
+}
+
+html,
+.light-mode {
+  --font-color: #000000;
+  --background-color: #ffffff;
+}
+
+html {
+  background-color: var(--background-color);
+  color: var(--font-color);
+}
