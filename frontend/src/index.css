@@ -1,0 +1,25 @@
+@import url('reset.css');
+
+html,
+.dark-mode {
+  --color-secondary: #596dff;
+  --color-primary: #a43bff;
+  --color-highlight: #ff34a4;
+  --color-background: #1c1c1c;
+  --color-text: #ffffff;
+}
+
+html,
+.light-mode {
+  --color-secondary: #6c7dff;
+  --color-primary: #bc70ff;
+  --color-highlight: #ff71bf;
+  --color-background: #f5f5f5;
+  --color-text: #1a1a1a;
+}
+
+html {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: Arial, Helvetica, sans-serif;
+}
