@@ -1,0 +1,5 @@
+# import Quote from './features/Quote/schema.graphql'
+
+type Query {
+  getAllQuotes: [Quote]
+}
