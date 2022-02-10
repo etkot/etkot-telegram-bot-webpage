@@ -32,3 +32,5 @@ To get the extension going you need to make sure you have the graphql.config.jso
 - `cd backend`
 - `yarn install`
 - `yarn dev`
+
+This will open a playground to test the graphql queries in `http://localhost:5000/graphql` (By default).
