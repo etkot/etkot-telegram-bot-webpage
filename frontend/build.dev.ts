@@ -1,13 +1,18 @@
 // esbuild --bundle --loader:.html=text --outDir www/ --watch src/
 
 import { serve } from 'esbuild'
+import glob from 'glob'
 
-const res = await serve(
+const entryPoints = glob.sync('src/routes/**/*.ts')
+console.log(entryPoints)
+
+const server = await serve(
   {
     servedir: 'public',
+    port: Number(process.env.PORT) || 8000,
   },
   {
-    entryPoints: ['./src/index.ts', './src/index.css'],
+    entryPoints,
     outdir: 'public',
     loader: {
       '.html': 'text',
@@ -20,4 +25,4 @@ const res = await serve(
   }
 )
 
-console.log(`Serving at http://${res.host}:${res.port}`)
+console.log(`Serving at http://${server.host}:${server.port}`)

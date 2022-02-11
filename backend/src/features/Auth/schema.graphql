@@ -1,0 +1,7 @@
+type Auth {
+  _id: ID!
+  is_bot: Boolean!
+  first_name: String
+  last_name: String
+  username: String!
+}

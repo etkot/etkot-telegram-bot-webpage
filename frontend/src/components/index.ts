@@ -1,3 +1,4 @@
-import('./body-text/body-text').then(({ default: BodyText }) => customElements.define('body-text', BodyText as any))
+const BodyText = () =>
+  import('./body-text/body-text').then(({ default: BodyText }) => customElements.define('body-text', BodyText as any))
 
-export {}
+export { BodyText }

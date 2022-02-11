@@ -10,6 +10,10 @@ import { IronSession } from 'iron-session'
 import * as morgan from 'morgan'
 import * as path from 'path'
 import configuration from './configure'
+import { ApiRouter } from './features/API'
+import { AuthDBModel } from './features/Auth/auth.model'
+import { authResolver } from './features/Auth/auth.resolver'
+import Auth from './features/Auth/auth.service'
 import { queryResolver } from './features/Query/query.resolver'
 import { QuoteDBModel } from './features/Quote/quote.model'
 import { quoteResolver } from './features/Quote/quote.resolver'
@@ -19,14 +23,25 @@ import { useSession } from './middleware/ironSession'
 import { CustomOrigin } from './types/customOrigin'
 import initDatabase from './utils/database'
 
-export type Context = {
-  session: IronSession
-  dataSources: {
-    quotes: Quotes
-  }
+const whiteList = ['localhost:8000', 'http://127.0.0.1']
+
+const resolvers: Resolvers = {
+  Query: queryResolver, // Top resolver
+  Quote: quoteResolver,
+  Auth: authResolver,
 }
 
-const whiteList = ['localhost:3000']
+const dataSources = () => ({
+  /* @ts-ignore */ // TODO: Some really puzzling error here about mongoose type mismatch
+  quotes: new Quotes(QuoteDBModel),
+  /* @ts-ignore */ // TODO: Some really puzzling error here about mongoose type mismatch
+  auth: new Auth(AuthDBModel),
+})
+
+export type Context = {
+  session: IronSession
+  dataSources: ReturnType<typeof dataSources>
+}
 
 const origin: CustomOrigin = (origin, callback) => {
   if (whiteList.includes(origin) || !origin) {
@@ -45,33 +60,30 @@ const runInit = async () => {
     loaders: [new GraphQLFileLoader()],
   })
 
-  const resolvers: Resolvers = {
-    Query: queryResolver, // Top resolver
-    Quote: quoteResolver,
-  }
-
   const app = express()
   const httpServer = http.createServer(app)
+  app.use(useSession)
 
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    mocks: configuration.NODE_ENV === 'development',
+    mockEntireSchema: false,
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground({}), ApolloServerPluginDrainHttpServer({ httpServer })],
-    dataSources: () => ({
-      /* @ts-ignore */ // TODO: Some really puzzling error here about mongoose type mismatch
-      quotes: new Quotes(QuoteDBModel),
-    }),
-    context: ({ req }) => ({
-      session: req.session,
-    }),
+    dataSources,
+    context: ({ req }) => {
+      return {
+        session: req.session,
+      }
+    },
   })
 
   await server.start()
   server.applyMiddleware({ app })
 
   app.use(morgan('tiny'))
-  app.use(useSession)
   app.use(cors({ origin }))
+  app.use(ApiRouter)
 
   httpServer.listen({ port }, () => {
     console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`)

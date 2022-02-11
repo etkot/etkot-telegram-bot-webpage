@@ -13,9 +13,19 @@ export type Scalars = {
   Float: number;
 };
 
+export type Auth = {
+  __typename?: 'Auth';
+  _id: Scalars['ID'];
+  first_name?: Maybe<Scalars['String']>;
+  is_bot: Scalars['Boolean'];
+  last_name?: Maybe<Scalars['String']>;
+  username: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   getAllQuotes?: Maybe<Array<Maybe<Quote>>>;
+  whoami?: Maybe<Auth>;
 };
 
 export type Quote = {
@@ -95,6 +105,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
+  Auth: ResolverTypeWrapper<Auth>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Query: ResolverTypeWrapper<{}>;
@@ -104,6 +115,7 @@ export type ResolversTypes = ResolversObject<{
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
+  Auth: Auth;
   Boolean: Scalars['Boolean'];
   ID: Scalars['ID'];
   Query: {};
@@ -111,8 +123,18 @@ export type ResolversParentTypes = ResolversObject<{
   String: Scalars['String'];
 }>;
 
+export type AuthResolvers<ContextType = any, ParentType extends ResolversParentTypes['Auth'] = ResolversParentTypes['Auth']> = ResolversObject<{
+  _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  first_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  is_bot?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  last_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   getAllQuotes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Quote']>>>, ParentType, ContextType>;
+  whoami?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType>;
 }>;
 
 export type QuoteResolvers<ContextType = any, ParentType extends ResolversParentTypes['Quote'] = ResolversParentTypes['Quote']> = ResolversObject<{
@@ -123,6 +145,7 @@ export type QuoteResolvers<ContextType = any, ParentType extends ResolversParent
 }>;
 
 export type Resolvers<ContextType = any> = ResolversObject<{
+  Auth?: AuthResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Quote?: QuoteResolvers<ContextType>;
 }>;
