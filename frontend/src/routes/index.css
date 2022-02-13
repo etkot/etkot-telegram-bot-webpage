@@ -1,1 +1,7 @@
 @import url('../styles/index.css');
+
+body {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}

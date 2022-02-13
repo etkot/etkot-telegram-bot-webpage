@@ -11,10 +11,14 @@
   },
   "scripts": {
     "dev": "esbuild build.dev.ts | node --input-type=module",
-    "sudo-dev": "esbuild build.dev.ts | sudo PORT=80 node --input-type=module"
+    "sudo-dev": "esbuild build.dev.ts | sudo PORT=80 node --input-type=module",
+    "build": "esbuild build.prod.ts | node --input-type=module",
+    "analyze": "esbuild build.analyze.ts | node --input-type=module"
   },
   "dependencies": {
-    "esbuild": "^0.14.21"
+    "esbuild": "^0.14.21",
+    "graphql": "^16.3.0",
+    "graphql-request": "^4.0.0"
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",

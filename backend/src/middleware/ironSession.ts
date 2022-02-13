@@ -6,7 +6,8 @@ const session = ironSession({
   cookieName: 'etkot_telegrambot_auth',
   password: configuration.SESSION_SECRET,
   cookieOptions: {
-    secure: configuration.NODE_ENV === 'production',
+    secure: true,
+    sameSite: 'none',
   },
 })
 

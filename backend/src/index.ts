@@ -3,6 +3,7 @@ import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 import { loadSchema } from '@graphql-tools/load'
 import { ApolloServerPluginDrainHttpServer, ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core'
 import { ApolloServer } from 'apollo-server-express'
+import * as bodyParser from 'body-parser'
 import * as cors from 'cors'
 import * as express from 'express'
 import * as http from 'http'
@@ -51,6 +52,8 @@ const origin: CustomOrigin = (origin, callback) => {
   }
 }
 
+const corsOptions = { origin, credentials: true }
+
 const runInit = async () => {
   const port = configuration.PORT || 3001
   await initDatabase()
@@ -71,18 +74,17 @@ const runInit = async () => {
     mockEntireSchema: false,
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground({}), ApolloServerPluginDrainHttpServer({ httpServer })],
     dataSources,
-    context: ({ req }) => {
-      return {
-        session: req.session,
-      }
-    },
+    context: ({ req }) => ({
+      session: req.session,
+    }),
   })
 
   await server.start()
-  server.applyMiddleware({ app })
+  server.applyMiddleware({ app, cors: corsOptions })
 
   app.use(morgan('tiny'))
-  app.use(cors({ origin }))
+  app.use(bodyParser.json())
+  app.use(cors(corsOptions))
   app.use(ApiRouter)
 
   httpServer.listen({ port }, () => {

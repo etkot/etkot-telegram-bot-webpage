@@ -1,0 +1,47 @@
+<style>
+  :host summary {
+    color: var(--color-secondary);
+    margin: -0.5em -0.5em 0;
+    padding: 0.5em;
+    display: flex;
+    align-items: center;
+  }
+
+  :host summary::after {
+    color: var(--color-primary);
+    content: '⏵';
+  }
+
+  :host details[open] summary::after {
+    content: '⏶';
+  }
+
+  :host details[open] summary {
+    border-bottom: 1px solid var(--color-primary);
+  }
+
+  :host details {
+    border: 1px solid var(--color-primary);
+    border-radius: 4px;
+    padding: 0.5rem 0.5rem 0;
+    margin: 0 0.5rem;
+  }
+
+  :host ul {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    margin-top: 0.5rem;
+  }
+</style>
+<details>
+  <summary>
+    <slot name="name">Name</slot>
+  </summary>
+  <ul></ul>
+</details>

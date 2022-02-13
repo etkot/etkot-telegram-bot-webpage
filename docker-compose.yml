@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+  frontend:
+    build: frontend/.
+    ports:
+      - '80:8080'
+
+  backend:
+    image: backend/.
+    ports:
+      - '5000:5000'
+
+  reverse-proxy:
+    image: nginx:alpine
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx:/etc/nginx
+
+networks:
+  default:
+    external: true
+    name: etkot-telegram-bot_default

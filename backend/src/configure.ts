@@ -3,6 +3,7 @@ const variables = {
   PORT: 'Port to listen on',
 
   SESSION_SECRET: 'Session Secret',
+  TELEGRAM_SECRET: 'Telegram Secret',
 
   DB_HOST: "Hostname of the mongo database, e.g. 'localhost'",
   DB_NAME: "Name of the database, e.g. 'titeweb'",

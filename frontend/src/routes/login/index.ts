@@ -1,4 +1,5 @@
-import { backendUrl } from '../../utils/backendUrl'
+import { authGuard } from '../../utils/authGuard'
+import { backendUrl } from '../../utils/networkConfigs'
 import './index.css'
 
 export type User = {
@@ -11,13 +12,26 @@ export type User = {
   username: string
 }
 
+const loggedIn = authGuard(false)
+if (loggedIn) {
+  window.location.replace('/')
+}
+
 const onTelegramAuth = async (user: User) => {
   const res = await fetch(`${backendUrl}/api/login`, {
     method: 'POST',
     body: JSON.stringify(user),
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   })
 
-  console.log(await res.json())
+  const { success } = await res.json()
+
+  if (success) {
+    window.location.href = '/'
+  }
 }
 
 window['onTelegramAuth'] = onTelegramAuth

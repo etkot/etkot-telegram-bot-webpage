@@ -14,4 +14,5 @@ class BodyText extends HTMLElement {
   }
 }
 
+customElements.define('body-text', BodyText)
 export default BodyText

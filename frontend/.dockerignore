@@ -1,0 +1,4 @@
+node_modules/
+build.analyze.ts
+build.dev.ts
+metafile.json

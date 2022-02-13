@@ -1,4 +1,5 @@
-const BodyText = () =>
-  import('./body-text/body-text').then(({ default: BodyText }) => customElements.define('body-text', BodyText as any))
+const BodyText = () => import('./body-text')
+const QuoteContainer = () => import('./quote-container')
+const QuoteComponent = () => import('./quote-component')
 
-export { BodyText }
+export { BodyText, QuoteContainer, QuoteComponent }

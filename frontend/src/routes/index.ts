@@ -1,4 +1,4 @@
-import { BodyText } from '../components' // Initialize all web components asyncrhonously
+import { authGuard } from '../utils/authGuard'
 import './index.css'
 
-BodyText() // Define custom component
+authGuard()
