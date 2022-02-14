@@ -1,4 +1,3 @@
-import { gql } from 'graphql-request'
 import { QuoteContainer } from '../../components'
 import IQuoteContainer from '../../components/quote-container'
 import { authGuard } from '../../utils/authGuard'
@@ -10,11 +9,10 @@ type Quote = {
   quote: string
 }
 
-authGuard()
-
 QuoteContainer()
+await authGuard()
 
-const quotesQuery = gql`
+const quotesQuery = `#graphql
   query {
     quotes: getAllQuotes {
       name
@@ -23,7 +21,7 @@ const quotesQuery = gql`
   }
 `
 
-const { quotes }: { quotes: Quote[] } = await client.request(quotesQuery)
+const { quotes } = await client<{ quotes: Quote[] }>(quotesQuery)
 
 const quoteMap: { [key: string]: string[] } = {}
 for (const quote of quotes) {

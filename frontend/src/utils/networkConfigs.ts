@@ -1,7 +1,20 @@
-import { GraphQLClient } from 'graphql-request'
+export const backendUrl = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:5000'
 
-export const backendUrl = process.env.NODE_ENV === 'production' ? 'https://api.nipatiitti.com' : 'http://localhost:5000'
+export const client: <T = any>(query: string, options?: Partial<RequestInit>) => Promise<T> = async (
+  query: string,
+  options = {}
+) => {
+  const res = await fetch(`${backendUrl}/graphql`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({
+      query,
+    }),
+    ...options,
+  })
 
-export const client = new GraphQLClient(`${backendUrl}/graphql`, {
-  credentials: 'include',
-})
+  return (await res.json())?.data || {}
+}

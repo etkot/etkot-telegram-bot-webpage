@@ -14,6 +14,7 @@ class QuoteComponent extends HTMLElement {
   }
 
   set quotes(quotes: string[]) {
+    console.log(this.shadowRoot)
     if (!this.shadowRoot) return
 
     const quoteList = this.shadowRoot.querySelector('ul')

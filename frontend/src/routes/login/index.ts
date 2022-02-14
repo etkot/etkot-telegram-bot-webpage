@@ -12,7 +12,7 @@ export type User = {
   username: string
 }
 
-const loggedIn = authGuard(false)
+const loggedIn = await authGuard(false)
 if (loggedIn) {
   window.location.replace('/')
 }

@@ -44,6 +44,8 @@ LoginRouter.post('/login', async (req, res) => {
 
   const user = await AuthDBModel.findById(data.id).exec()
   if (!user) {
+    req.session.destroy()
+
     res.status(401).json({ error: 'User not found' })
     return
   }

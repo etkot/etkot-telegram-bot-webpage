@@ -1,7 +1,6 @@
-import { gql } from 'graphql-request'
 import { client } from './networkConfigs'
 
-const whoamiQuery = gql`
+const whoamiQuery = `#graphql
   query WhoAmI {
     whoami {
       first_name
@@ -12,11 +11,11 @@ const whoamiQuery = gql`
 `
 
 export const authGuard = async (navigate = true) => {
-  const { whoami } = await client.request(whoamiQuery)
+  const { whoami } = await client<{ whoami: boolean }>(whoamiQuery)
 
   if (!whoami && navigate) {
     window.location.replace('/login')
   }
 
-  return whoami as boolean
+  return whoami
 }

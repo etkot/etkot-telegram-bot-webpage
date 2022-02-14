@@ -24,7 +24,7 @@ import { useSession } from './middleware/ironSession'
 import { CustomOrigin } from './types/customOrigin'
 import initDatabase from './utils/database'
 
-const whiteList = ['localhost:8000', 'http://127.0.0.1']
+const whiteList = ['http://localhost:8000', 'http://127.0.0.1', configuration.CORS_ORIGIN]
 
 const resolvers: Resolvers = {
   Query: queryResolver, // Top resolver

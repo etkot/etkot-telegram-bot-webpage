@@ -4,6 +4,7 @@ const variables = {
 
   SESSION_SECRET: 'Session Secret',
   TELEGRAM_SECRET: 'Telegram Secret',
+  CORS_ORIGIN: 'CORS Origin',
 
   DB_HOST: "Hostname of the mongo database, e.g. 'localhost'",
   DB_NAME: "Name of the database, e.g. 'titeweb'",
