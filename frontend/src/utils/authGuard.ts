@@ -11,11 +11,15 @@ const whoamiQuery = `#graphql
 `
 
 export const authGuard = async (navigate = true) => {
-  const { whoami } = await client<{ whoami: boolean }>(whoamiQuery)
+  let loggedin = false
+  try {
+    const { whoami } = await client<{ whoami: boolean }>(whoamiQuery)
+    loggedin = whoami
+  } catch (error) {}
 
-  if (!whoami && navigate) {
+  if (!loggedin && navigate) {
     window.location.replace('/login')
   }
 
-  return whoami
+  return loggedin
 }
