@@ -1,6 +1,6 @@
-import templateString from './body-text.template.html'
+import templateString from './template.html'
 
-class BodyText extends HTMLElement {
+class HeaderText extends HTMLHeadingElement {
   constructor() {
     super()
 
@@ -14,5 +14,5 @@ class BodyText extends HTMLElement {
   }
 }
 
-customElements.define('body-text', BodyText)
-export default BodyText
+customElements.define('header-text', HeaderText, { extends: 'h1' })
+export default HeaderText

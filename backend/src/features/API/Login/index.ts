@@ -16,7 +16,6 @@ type TelegramLogin = {
 }
 
 LoginRouter.post('/login', async (req, res) => {
-  console.log(req.session.user)
   const data = req.body as TelegramLogin
 
   const keys = Object.keys(data)
