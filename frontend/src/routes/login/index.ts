@@ -17,6 +17,17 @@ if (loggedIn) {
   window.location.replace('/')
 }
 
+const script = document.createElement('script')
+script.async = true
+script.src = 'https://telegram.org/js/telegram-widget.js?15'
+script.setAttribute('data-telegram-login', process.env.NODE_ENV === 'production' ? 'Etkot_bot' : 'etkot_test_bot')
+script.setAttribute('data-size', 'large')
+script.setAttribute('data-radius', '4')
+script.setAttribute('data-onauth', 'onTelegramAuth(user)')
+
+const container = document.getElementById('container')
+container.appendChild(script)
+
 const onTelegramAuth = async (user: User) => {
   const res = await fetch(`${backendUrl}/api/login`, {
     method: 'POST',
