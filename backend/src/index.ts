@@ -15,6 +15,9 @@ import { ApiRouter } from './features/API'
 import { AuthDBModel } from './features/Auth/auth.model'
 import { authResolver } from './features/Auth/auth.resolver'
 import Auth from './features/Auth/auth.service'
+import { CreditDBModel } from './features/Credit/credit.model'
+import { creditResolver } from './features/Credit/credit.resolver'
+import Credit from './features/Credit/credit.service'
 import { queryResolver } from './features/Query/query.resolver'
 import { QuoteDBModel } from './features/Quote/quote.model'
 import { quoteResolver } from './features/Quote/quote.resolver'
@@ -30,6 +33,7 @@ const resolvers: Resolvers = {
   Query: queryResolver, // Top resolver
   Quote: quoteResolver,
   Auth: authResolver,
+  CreditDoc: creditResolver,
 }
 
 const dataSources = () => ({
@@ -37,6 +41,8 @@ const dataSources = () => ({
   quotes: new Quotes(QuoteDBModel),
   /* @ts-ignore */ // TODO: Some really puzzling error here about mongoose type mismatch
   auth: new Auth(AuthDBModel),
+  /* @ts-ignore */ // TODO: Some really puzzling error here about mongoose type mismatch
+  credits: new Credit(CreditDBModel),
 })
 
 export type Context = {

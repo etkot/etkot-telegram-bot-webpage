@@ -22,8 +22,24 @@ export type Auth = {
   username: Scalars['String'];
 };
 
+export type Credit = {
+  __typename?: 'Credit';
+  date: Scalars['Int'];
+  from: Scalars['String'];
+  msg: Scalars['Int'];
+};
+
+export type CreditDoc = {
+  __typename?: 'CreditDoc';
+  _id: Scalars['ID'];
+  minus_credits?: Maybe<Array<Credit>>;
+  plus_credits?: Maybe<Array<Credit>>;
+  username: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
+  getAllCredits?: Maybe<Array<Maybe<CreditDoc>>>;
   getAllQuotes?: Maybe<Array<Maybe<Quote>>>;
   whoami?: Maybe<Auth>;
 };
@@ -107,7 +123,10 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Auth: ResolverTypeWrapper<Auth>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Credit: ResolverTypeWrapper<Credit>;
+  CreditDoc: ResolverTypeWrapper<CreditDoc>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   Query: ResolverTypeWrapper<{}>;
   Quote: ResolverTypeWrapper<Quote>;
   String: ResolverTypeWrapper<Scalars['String']>;
@@ -117,7 +136,10 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   Auth: Auth;
   Boolean: Scalars['Boolean'];
+  Credit: Credit;
+  CreditDoc: CreditDoc;
   ID: Scalars['ID'];
+  Int: Scalars['Int'];
   Query: {};
   Quote: Quote;
   String: Scalars['String'];
@@ -132,7 +154,23 @@ export type AuthResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type CreditResolvers<ContextType = any, ParentType extends ResolversParentTypes['Credit'] = ResolversParentTypes['Credit']> = ResolversObject<{
+  date?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  from?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  msg?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CreditDocResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreditDoc'] = ResolversParentTypes['CreditDoc']> = ResolversObject<{
+  _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  minus_credits?: Resolver<Maybe<Array<ResolversTypes['Credit']>>, ParentType, ContextType>;
+  plus_credits?: Resolver<Maybe<Array<ResolversTypes['Credit']>>, ParentType, ContextType>;
+  username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  getAllCredits?: Resolver<Maybe<Array<Maybe<ResolversTypes['CreditDoc']>>>, ParentType, ContextType>;
   getAllQuotes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Quote']>>>, ParentType, ContextType>;
   whoami?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType>;
 }>;
@@ -146,6 +184,8 @@ export type QuoteResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type Resolvers<ContextType = any> = ResolversObject<{
   Auth?: AuthResolvers<ContextType>;
+  Credit?: CreditResolvers<ContextType>;
+  CreditDoc?: CreditDocResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Quote?: QuoteResolvers<ContextType>;
 }>;

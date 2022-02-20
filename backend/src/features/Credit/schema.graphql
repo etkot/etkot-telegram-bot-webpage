@@ -1,0 +1,12 @@
+type CreditDoc {
+  _id: ID!
+  username: String!
+  plus_credits: [Credit!]
+  minus_credits: [Credit!]
+}
+
+type Credit {
+  from: String!
+  msg: Int!
+  date: Int!
+}

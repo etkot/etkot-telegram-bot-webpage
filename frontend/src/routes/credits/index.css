@@ -1,0 +1,7 @@
+@import url('../../styles/index.css');
+
+@media screen and (max-width: 768px) {
+  html {
+    font-size: calc(10px + 1vw);
+  }
+}

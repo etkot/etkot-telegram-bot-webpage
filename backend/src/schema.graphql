@@ -1,7 +1,9 @@
 # import Quote from './features/Quote/schema.graphql'
 # import Auth from './features/Auth/schema.graphql'
+# import CreditDoc from './features/Credit/schema.graphql'
 
 type Query {
+  getAllCredits: [CreditDoc]
   getAllQuotes: [Quote]
   whoami: Auth
 }

@@ -20,9 +20,12 @@ body {
 
 #container > :first-child {
   flex: 2;
-  display: flex;
-  justify-content: flex-end;
   padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
 }
 
 a {
